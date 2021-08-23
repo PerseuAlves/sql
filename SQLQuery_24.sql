@@ -121,8 +121,32 @@ AS
         RAISERROR('Erro, tabela inválida', 16, 1)
     END
 
-
+--Válido
 DECLARE @out1 VARCHAR(MAX)
 EXEC sp_Loja 'e', 1, 1, 'Bola', 3.45, 5, 
 	@out1 OUTPUT
 PRINT @out1
+
+--Válido
+DECLARE @out2 VARCHAR(MAX)
+EXEC sp_Loja 's', 2, 1, 'Agulha', 2.00, 3, 
+	@out2 OUTPUT
+PRINT @out2
+
+--inválido
+DECLARE @out3 VARCHAR(MAX)
+EXEC sp_Loja 'q', 2, 1, 'Bola', 3.45, 5, 
+	@out3 OUTPUT
+PRINT @out3
+
+--inválido
+DECLARE @out4 VARCHAR(MAX)
+EXEC sp_Loja 'e', 1, 1, 'Bola', 3.45, 5, 
+	@out4 OUTPUT
+PRINT @out4
+
+--inválido
+
+SELECT * FROM Produto
+SELECT * FROM ENTRADA
+SELECT * FROM SAIDA
