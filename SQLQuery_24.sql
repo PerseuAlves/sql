@@ -53,24 +53,25 @@ GO
 
 CREATE PROCEDURE sp_Loja(@codigo CHAR(1), @codigo_Produto INT, @codigo_transacao INT, @nome VARCHAR(100), @valor DECIMAL(5,2), @quantidade INT, @saida VARCHAR(MAX) OUTPUT)
 AS
-    DECLARE @contador INT,
-            @tabela	VARCHAR(20),
-			@query	VARCHAR(150),
-			@erro	VARCHAR(MAX)
+    DECLARE @contador   INT,
+            @tabela	    VARCHAR(20),
+			@query	    VARCHAR(150),
+			@erro	    VARCHAR(MAX),
+            @valorT      DECIMAL(5,2)
 
-            CAST( AS VARCHAR())
+    SET @valorT = @quantidade * @valor
 
     IF(@codigo = 'e')
     BEGIN
         SET @tabela = 'ENTRADA'
 
         SET @query = 'INSERT INTO ' + @tabela + ' VALUES ' +
-        '(' + CAST(@codigo_transacao AS VARCHAR(2)) + ', ' + CAST(@codigo_Produto AS VARCHAR(2)) + ', ' + CAST(@quantidade AS VARCHAR(3)) + ', ' + 'CAST((@quantidade * @valor) AS VARCHAR(3))' + ')'
+        '(' + CAST(@codigo_transacao AS VARCHAR(2)) + ', ' + CAST(@codigo_Produto AS VARCHAR(2)) + ', ' + CAST(@quantidade AS VARCHAR(3)) + ', ' + CAST(@valorT AS VARCHAR(6)) + ')'
 
         PRINT @query
 
         BEGIN TRY
-            INSERT INTO Produto VALUES (@codigo, @nome, @valor)
+            INSERT INTO Produto VALUES (@codigo_Produto, @nome, @valor)
             EXEC (@query)
             SET @saida = 'Operação na tabela ' + @tabela+' realizada com sucesso.'
         END TRY
@@ -93,12 +94,12 @@ AS
         SET @tabela = 'SAIDA'
 
         SET @query = 'INSERT INTO ' + @tabela + ' VALUES ' +
-        '(' + @codigo_transacao + ', ' + @codigo_Produto + ', ' + @quantidade + ', ' + '(@quantidade * @valor)' + ')'
+        '(' + CAST(@codigo_transacao AS VARCHAR(2)) + ', ' + CAST(@codigo_Produto AS VARCHAR(2)) + ', ' + CAST(@quantidade AS VARCHAR(3)) + ', ' + CAST(@valorT AS VARCHAR(6)) + ')'
 
         PRINT @query
 
         BEGIN TRY
-            INSERT INTO Produto VALUES (@codigo, @nome, @valor)
+            INSERT INTO Produto VALUES (@codigo_Produto, @nome, @valor)
             EXEC (@query)
             SET @saida = 'Operação na tabela ' + @tabela+' realizada com sucesso.'
         END TRY
