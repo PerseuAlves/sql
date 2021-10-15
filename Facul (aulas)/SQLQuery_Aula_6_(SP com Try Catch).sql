@@ -46,6 +46,8 @@ SET @query = 'INSERT INTO produto VALUES (1, ''Bola'', ''Azul'')'
 PRINT @query
 EXEC (@query)
 
+GO
+
 /*Problema: 
 Preciso criar uma única SP que me permita inserir 
 tênis ou camiseta

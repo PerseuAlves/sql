@@ -124,6 +124,7 @@ AS
                 PRINT('')
                 INSERT INTO cadastro_cpf VALUES
                 (@cpf, @nome, @logradouro, @numero);
+                RAISERROR('Dados cadastrados com sucesso', 16, 1)
             END
             ELSE
             BEGIN
