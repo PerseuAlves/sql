@@ -1,33 +1,33 @@
 /*
 ---------------------------------------------------------------------------------------
-																AULA: INTRODUÇÃO	  -
+																AULA: INTRODUï¿½ï¿½O	  -
 ---------------------------------------------------------------------------------------
 */
 
 /*
-Um campeonato de basquete tem times que são cadastrados por um id único, 
-que começa em 4001 e incrementa de 1 em 1, o nome do time que também 
-deve ser único e a cidade. Um time tem muitos jogadores, porém 1 jogador 
-só pode jogar em 1 time e os jogadores são cadastrados por um código 
-único que inicia em 900101, incrementa de 1 em 1, o nome do jogador 
-deve ser único também, sexo pode apenas ser M ou F, mas a maioria dos 
-jogadores é Homem, altura com 2 casas decimais e a data de nascimento 
-(apenas jogadores nascidos até 31/12/1999). 
-Jogadores do sexo masculino devem ter, no mínimo 1.70 de altura e do 
+Um campeonato de basquete tem times que sï¿½o cadastrados por um id ï¿½nico, 
+que comeï¿½a em 4001 e incrementa de 1 em 1, o nome do time que tambï¿½m 
+deve ser ï¿½nico e a cidade. Um time tem muitos jogadores, porï¿½m 1 jogador 
+sï¿½ pode jogar em 1 time e os jogadores sï¿½o cadastrados por um cï¿½digo 
+ï¿½nico que inicia em 900101, incrementa de 1 em 1, o nome do jogador 
+deve ser ï¿½nico tambï¿½m, sexo pode apenas ser M ou F, mas a maioria dos 
+jogadores ï¿½ Homem, altura com 2 casas decimais e a data de nascimento 
+(apenas jogadores nascidos atï¿½ 31/12/1999). 
+Jogadores do sexo masculino devem ter, no mï¿½nimo 1.70 de altura e do 
 sexo feminino, 1.60).
 -------------------------------------------------------------------
-A seguir se previu a necessidade de cadastro para ginásio, por um id 
-numérico e nome char(10). Ainda não estava certo se id seria a chave 
-primária, portanto é criada sem. 
-Todo ginásio tem um time e todo time tem apenas um ginásio. Essa 
-informação foi passada após a criação da tabela, além da confirmação
+A seguir se previu a necessidade de cadastro para ginï¿½sio, por um id 
+numï¿½rico e nome char(10). Ainda nï¿½o estava certo se id seria a chave 
+primï¿½ria, portanto ï¿½ criada sem. 
+Todo ginï¿½sio tem um time e todo time tem apenas um ginï¿½sio. Essa 
+informaï¿½ï¿½o foi passada apï¿½s a criaï¿½ï¿½o da tabela, alï¿½m da confirmaï¿½ï¿½o
 de id como PK.
-O nome do ginásio, deve ser modificado para VARCHAR(50)
-Todo ginásio passou a necessitar armazenar uma URL com a foto da 
+O nome do ginï¿½sio, deve ser modificado para VARCHAR(50)
+Todo ginï¿½sio passou a necessitar armazenar uma URL com a foto da 
 fachada, chamada URL.
-Na sequência se verificou que esse atributo deveria se chamar 
+Na sequï¿½ncia se verificou que esse atributo deveria se chamar 
 URLFoto.
-Posteriormente se verificou que esse atributo se tornou desnecessário e 
+Posteriormente se verificou que esse atributo se tornou desnecessï¿½rio e 
 deve ser excluido
 */
  
@@ -36,14 +36,14 @@ GO
 USE aulaCRUDConstraints
 
 /*
-CONSTRAINTS - RESTRIÇÕES:
+CONSTRAINTS - RESTRIï¿½ï¿½ES:
 
-PK - Cria um índice para busca e define unicidade
-FK - Cria uma referência entre PK e FK para fazer validações (NÃO importa dados de outra tabela)
+PK - Cria um ï¿½ndice para busca e define unicidade
+FK - Cria uma referï¿½ncia entre PK e FK para fazer validaï¿½ï¿½es (Nï¿½O importa dados de outra tabela)
 IDENTITY(X,Y) - Auto-incremento, inicia em X, Y define o passo 
-DEFAULT(X) - Caso a coluna não receba valor, será preenchida com X
+DEFAULT(X) - Caso a coluna nï¿½o receba valor, serï¿½ preenchida com X
 UNIQUE - Define unicidade
-CHECK - Valida alguma regra, caso falhe, o registro é excluído (Nível de coluna ou nível de tabela)
+CHECK - Valida alguma regra, caso falhe, o registro ï¿½ excluï¿½do (Nï¿½vel de coluna ou nï¿½vel de tabela)
 */
  
 CREATE TABLE times (
@@ -53,7 +53,7 @@ cidade	VARCHAR(50)		NOT NULL
 PRIMARY KEY (id)
 )
 GO
---UPPER(char): Aumenta a expressão para maiúsculo
+--UPPER(char): Aumenta a expressï¿½o para maiï¿½sculo
 --DATE pode ser: YYYY-MM-DD ou YYYY-DD-MM
 CREATE TABLE jogador (
 codigo		INT				NOT NULL	IDENTITY(900101,1),
@@ -128,7 +128,7 @@ ADD CONSTRAINT CHK_TAM_NOME_GINASIO
 EXEC sp_help ginasio
  
 /*
-DML - Linguagem de Manipulação de Dados
+DML - Linguagem de Manipulaï¿½ï¿½o de Dados
 INSERT - Inserir registros na tabela
 SELECT - Consulta dados nas tabelas
 UPDATE - Modificar dados de um ou mais registros
@@ -145,7 +145,7 @@ OU
 INSERT INTO nome_tabela (atr1, atr2, atr3, ..., atrN) VALUES
 (d1, NULL, d3, ..., dN)
  
-Se está na ordem de criação das colunas
+Se estï¿½ na ordem de criaï¿½ï¿½o das colunas
 INSERT INTO nome_tabela VALUES
 (d1, d2, d3, ..., dN)
 
@@ -153,23 +153,23 @@ SELECT * FROM nome_tabela
 */
 
 INSERT INTO times (nome, cidade) VALUES 
-('São Roque', 'Thunders')
+('Sï¿½o Roque', 'Thunders')
  
 SELECT * FROM times
 SELECT * FROM ginasio
 SELECT * FROM jogador
  
 INSERT INTO times (nome, cidade) VALUES
-('Tatuí', 'Hawks'),
-('Avaré', 'Panthers'),
+('Tatuï¿½', 'Hawks'),
+('Avarï¿½', 'Panthers'),
 ('Botucatu', 'Bulls'),
 ('Santos', 'Bills')
  
 INSERT INTO ginasio VALUES
-(1, 'Ginásio do Aeroporto', 4002)
+(1, 'Ginï¿½sio do Aeroporto', 4002)
  
 INSERT INTO ginasio VALUES
-(2, 'Ginásio Praiano', 4005)
+(2, 'Ginï¿½sio Praiano', 4005)
  
 INSERT INTO times (nome, cidade) VALUES 
 ('Itu', 'Giants')
@@ -186,13 +186,13 @@ DELETE times
 WHERE id = 4001
  
 DELETE times
-WHERE nome = 'Tatuí'
+WHERE nome = 'Tatuï¿½'
 
 DELETE times
 WHERE id < 4005
  
 DELETE times
-WHERE cidade = 'Tatuí' OR cidade = 'São Roque' OR nome = 'Bulls'
+WHERE cidade = 'Tatuï¿½' OR cidade = 'Sï¿½o Roque' OR nome = 'Bulls'
  
 DELETE times
 WHERE cidade = 'Santos' AND nome = 'Biggers'
@@ -200,12 +200,12 @@ WHERE cidade = 'Santos' AND nome = 'Biggers'
 DELETE ginasio
 DELETE times
 
---Após deletar a tabela times e a recriar manualmente:
+--Apï¿½s deletar a tabela times e a recriar manualmente:
 
 INSERT INTO times (cidade, nome) VALUES 
-('São Roque', 'Thunders'),
-('Tatuí', 'Hawks'),
-('Avaré', 'Panthers'),
+('Sï¿½o Roque', 'Thunders'),
+('Tatuï¿½', 'Hawks'),
+('Avarï¿½', 'Panthers'),
 ('Botucatu', 'Bulls'),
 ('Santos', 'Bills'),
 ('Itu', 'Giants'),
@@ -213,7 +213,7 @@ INSERT INTO times (cidade, nome) VALUES
 ('Franca','Dharma')
 
 /*
-DELETE COMPLETO (Todas as linhas, Não funciona caso a tabela tenha FKs)
+DELETE COMPLETO (Todas as linhas, Nï¿½o funciona caso a tabela tenha FKs)
 Reiniciando o IDENTITY:
 TRUNCATE TABLE nome_tabela
 */
@@ -235,15 +235,15 @@ WHERE coluna = valor
  
 --Todos esses resolvem o mesmo problema---------
 UPDATE times
-SET nome = 'Blackers', cidade = 'Ribeirão Preto'
+SET nome = 'Blackers', cidade = 'Ribeirï¿½o Preto'
 WHERE id = 4008
 -- OU
 UPDATE times
-SET nome = 'Blackers', cidade = 'Ribeirão Preto'
+SET nome = 'Blackers', cidade = 'Ribeirï¿½o Preto'
 WHERE nome = 'Dharma'
 -- OU 
 UPDATE times
-SET nome = 'Blackers', cidade = 'Ribeirão Preto'
+SET nome = 'Blackers', cidade = 'Ribeirï¿½o Preto'
 WHERE nome = 'Dharma' AND cidade = 'Franca'
 ------------------------------------------------
 
@@ -252,19 +252,19 @@ SET nome = 'Black Rivers'
 WHERE id = 4008
 
 UPDATE times 
-SET cidade = 'São Roque'
+SET cidade = 'Sï¿½o Roque'
 WHERE id = 4001
  
 UPDATE times 
-SET cidade = 'Tatuí'
+SET cidade = 'Tatuï¿½'
 WHERE id = 4002
  
---ERRADO, irá atualizar todas as colunas da tabela
+--ERRADO, irï¿½ atualizar todas as colunas da tabela
 UPDATE times 
-SET cidade = ' São Paulo'
+SET cidade = ' Sï¿½o Paulo'
 --------------------------------------------------
 
---Usando a segunda tabela (revisão do conteúdo de cima)
+--Usando a segunda tabela (revisï¿½o do conteï¿½do de cima)
  
 INSERT INTO jogador (nome, altura, dt_nasc, timesId) VALUES
 ('Jordan', 1.87, '1963-02-17', 4004)
@@ -286,26 +286,26 @@ SET altura = altura + (0.1 * altura)
 WHERE codigo = 900101
 
 /*
-A tabela funcionário tem as seguintes restrições:
+A tabela funcionï¿½rio tem as seguintes restriï¿½ï¿½es:
 - PK - id
 - id - auto incremento de 1 em 1
-- número - deve ser positivo
+- nï¿½mero - deve ser positivo
 - cep - deve ter 8 caracteres
-- ddd - padrão 11
+- ddd - padrï¿½o 11
 - telefone - deve ter 8 caracteres
 - data_nasc - deve ser anterior a hoje
 - salario - deve ser positivo
 
-A tabela projeto tem as seguintes restrições:
+A tabela projeto tem as seguintes restriï¿½ï¿½es:
 - PK - codigo
 - codigo - auto incremento partindo de 1001, de 1 em 1
-- nome - não pode repetir
+- nome - nï¿½o pode repetir
 
-A tabela funcproj tem as seguintes restrições:
+A tabela funcproj tem as seguintes restriï¿½ï¿½es:
 - PK - id_funcionario, codigo_projeto
 - FK - id_funcionario ref. funcionario, PK id
 - FK - codigo_projeto ref. projeto, PK codigo
-- data_inicio & data_fim - data_fim não pode ser maior que data_inicio
+- data_inicio & data_fim - data_fim nï¿½o pode ser maior que data_inicio
 */
 
 CREATE DATABASE selects
@@ -348,18 +348,18 @@ CONSTRAINT chk_dts CHECK(data_fim > data_inicio)
 
 
 INSERT INTO funcionario (nome, sobrenome, logradouro, numero, bairro, cep, telefone, data_nasc, salario) VALUES
-('Fulano',	'da Silva',	'R. Voluntários da Patria',	8150,	'Santana',	'05423110',	'76895248',	'1974-05-15',	4350.00),
+('Fulano',	'da Silva',	'R. Voluntï¿½rios da Patria',	8150,	'Santana',	'05423110',	'76895248',	'1974-05-15',	4350.00),
 ('Cicrano',	'De Souza',	'R. Anhaia', 353,	'Barra Funda',	'03598770',	'99568741',	'1984-08-25',	1552.00),
 ('Beltrano',	'Dos Santos',	'R. ABC', 1100,	'Artur Alvim',	'05448000',	'25639854',	'1963-06-02',	2250.00)
 INSERT INTO funcionario (nome, sobrenome, logradouro, numero, bairro, cep, ddd, telefone, data_nasc, salario) VALUES
-('Tirano',	'De Souza',	'Avenida Águia de Haia', 4430,	'Artur Alvim',	'05448000',	NULL,	NULL,	'1975-10-15',	2804.00)
+('Tirano',	'De Souza',	'Avenida ï¿½guia de Haia', 4430,	'Artur Alvim',	'05448000',	NULL,	NULL,	'1975-10-15',	2804.00)
 
 INSERT INTO funcionario (nome, sobrenome, logradouro, numero, bairro, cep, ddd, telefone, data_nasc, salario) VALUES
 ('Beltrano',	'Dos Santos',	'R. ABC', 1100,	'Artur Alvim',	'05448000',	'11',	'25639854',	'2015-06-02',	2250.00)
 
 INSERT INTO projeto VALUES
-('Implantação de Sistemas','Colocar o sistema no ar'),
-('Modificação do módulo de cadastro','Modificar CRUD'),
+('Implantaï¿½ï¿½o de Sistemas','Colocar o sistema no ar'),
+('Modificaï¿½ï¿½o do mï¿½dulo de cadastro','Modificar CRUD'),
 ('Teste de Sistema de Cadastro',NULL)
 
 INSERT INTO funcproj VALUES
@@ -377,12 +377,12 @@ SELECT * FROM funcionario
 SELECT * FROM projeto
 SELECT * FROM funcproj
 
---Funções Importantes
+--Funï¿½ï¿½es Importantes
 SELECT 'Boa tarde', 'Turma'
 SELECT GETDATE()
 	--Alias em colunas (AS)
 SELECT GETDATE() AS hoje
-	--CONVERSÕES DE TIPO (CAST, CONVERT)
+	--CONVERSï¿½ES DE TIPO (CAST, CONVERT)
 SELECT 12 AS doze
 SELECT 'A12' AS adoze
 SELECT CAST(12 AS CHAR(2)) AS doze_char
@@ -445,13 +445,13 @@ WHERE nome = 'Beltrano'
 	AND data_nasc < '1970-01-01'
 	
 
---Id e Nome Concatenado de quem não tem telefone
+--Id e Nome Concatenado de quem nï¿½o tem telefone
 --nome_completo
 SELECT id, nome + ' ' + sobrenome AS nome_completo
 FROM funcionario
 WHERE telefone IS NULL
 
---NULL não usa = 
+--NULL nï¿½o usa = 
 -- IS NULL ou IS NOT NULL
 
 SELECT id, nome, sobrenome, nome + ' ' + sobrenome AS nome_completo, telefone
@@ -475,9 +475,9 @@ WHERE telefone IS NOT NULL
 --ORDER BY nome ASC, sobrenome ASC, data_nasc DESC
 ORDER BY nome_completo
 
---Nome Concatenado e telefone (sem ddd) de quem tem telefone em ordem alfabética
+--Nome Concatenado e telefone (sem ddd) de quem tem telefone em ordem alfabï¿½tica
 
---Nome completo, Endereco completo (Rua, nº e CEP), ddd e telefone, ordem alfabética crescente
+--Nome completo, Endereco completo (Rua, nï¿½ e CEP), ddd e telefone, ordem alfabï¿½tica crescente
 SELECT id, 
 		nome + ' ' + sobrenome AS nome_completo,
 		logradouro + ',' + CAST(numero AS VARCHAR(5)) + ' - ' + cep AS endereco_completo,
@@ -486,7 +486,7 @@ SELECT id,
 FROM funcionario
 ORDER BY nome_completo ASC
 
---Nome completo, Endereco completo (Rua, nº e CEP), data_nasc (BR), ordem alfabética decrescente
+--Nome completo, Endereco completo (Rua, nï¿½ e CEP), data_nasc (BR), ordem alfabï¿½tica decrescente
 SELECT id, 
 		nome + ' ' + sobrenome AS nome_completo,
 		logradouro + ',' + CAST(numero AS VARCHAR(5)) + ' - ' + cep AS endereco_completo,
@@ -566,15 +566,15 @@ DBCC CHECKIDENT ('funcionario', RESEED, 5)
 DELETE funcionario WHERE id > 5
 
 INSERT INTO funcionario VALUES 
-('Fulano','da Silva Jr.','R. Voluntários da Patria',8150,NULL,'05423110','11','32549874','1990-09-09',1235.00),
-('João','dos Santos','R. Anhaia',150,NULL,'03425000','11','45879852','1973-08-19',2352.00),
+('Fulano','da Silva Jr.','R. Voluntï¿½rios da Patria',8150,NULL,'05423110','11','32549874','1990-09-09',1235.00),
+('Joï¿½o','dos Santos','R. Anhaia',150,NULL,'03425000','11','45879852','1973-08-19',2352.00),
 ('Maria','dos Santos','R. Pedro de Toledo',18,NULL,'04426000','11','32568974','1982-05-03',4550.00)
 
 SELECT * FROM funcionario
 SELECT * FROM projeto
 SELECT * FROM funcproj
 
---SUBSTRING(char, posição inicial, qtd de caracteres) - retorna char
+--SUBSTRING(char, posiï¿½ï¿½o inicial, qtd de caracteres) - retorna char
 SELECT SUBSTRING('Banco de Dados', 1, 5) AS sub
 SELECT SUBSTRING('Banco de Dados', 7, 2) AS sub
 SELECT SUBSTRING('Banco de Dados', 10, 5) AS sub
@@ -589,8 +589,8 @@ SELECT SUBSTRING('Banco de Dados', 7, 2) AS sub
 SELECT SUBSTRING('Banco de Dados', 6, 4) AS sub
 
 --TRIM
---LTRIM(char) - retorna char sem espaços à esquerda
---RTRIM(char) - retorna char sem espaços à direta
+--LTRIM(char) - retorna char sem espaï¿½os ï¿½ esquerda
+--RTRIM(char) - retorna char sem espaï¿½os ï¿½ direta
 SELECT LTRIM('   Boa tarde') AS boa_tarde
 SELECT '   Boa tarde' AS boa_tarde
 
@@ -604,9 +604,9 @@ SELECT LTRIM(RTRIM(' oi ')) AS oi
 SELECT SUBSTRING('Banco de Dados', 7, 2) AS sub
 SELECT LTRIM(RTRIM(SUBSTRING('Banco de Dados', 6, 4))) AS sub
 
---Funções para operações com datas
+--Funï¿½ï¿½es para operaï¿½ï¿½es com datas
 SELECT GETDATE() AS hoje
-/* ISSO NÃO SE FAZ !!!!!!!!!!!
+/* ISSO Nï¿½O SE FAZ !!!!!!!!!!!
 SELECT CAST(SUBSTRING(CONVERT(CHAR(10), GETDATE(), 103), 1, 2) AS INT) AS dia
 */
 SELECT DAY(GETDATE()) AS dia
@@ -720,7 +720,7 @@ SELECT nome+' '+sobrenome AS nome_completo,
 FROM funcionario
 
 
---Consultar nome completo, com endereço completo 
+--Consultar nome completo, com endereï¿½o completo 
 SELECT nome+' '+sobrenome AS nome_completo,
 	CASE 
 		WHEN bairro IS NULL THEN
@@ -733,8 +733,8 @@ FROM funcionario
 
 --Corrigir com CASE
 
---Consultar nome completo, endereço completo, cep mascarado, 
---telefone com ddd mascarado e validação de celular
+--Consultar nome completo, endereï¿½o completo, cep mascarado, 
+--telefone com ddd mascarado e validaï¿½ï¿½o de celular
 SELECT id,
 	nome+' '+sobrenome AS nome_completo,
 	CASE 
@@ -752,13 +752,13 @@ SELECT id,
 	END AS tel
 FROM funcionario
 
---Quantos dias trabalhados, por funcionário em cada projeto
+--Quantos dias trabalhados, por funcionï¿½rio em cada projeto
 SELECT id_funcionario, codigo_projeto,
 	DATEDIFF(DAY, data_inicio, data_fim) AS duracao
 FROM funcproj
 
 --Funcionario 3 do projeto 1003 pediu mais 3 dias para finalizar o projeto, 
---qual será sua nova data final, convertida (BR) ?
+--qual serï¿½ sua nova data final, convertida (BR) ?
 SELECT id_funcionario, codigo_projeto, 
 	CONVERT(CHAR(10), data_fim, 103) AS data_fim,
 	CONVERT(CHAR(10), DATEADD(DAY, 3, data_fim), 103) AS nova_data_fim
@@ -770,7 +770,7 @@ SELECT DISTINCT codigo_projeto
 FROM funcproj
 WHERE DATEDIFF(DAY, data_inicio, data_fim) < 10
 
---Nomes e descrições de projetos distintos tem menos de 10 dias trabalhados
+--Nomes e descriï¿½ï¿½es de projetos distintos tem menos de 10 dias trabalhados
 SELECT nome, descricao
 FROM projeto 
 WHERE codigo IN 
@@ -780,8 +780,8 @@ FROM funcproj
 WHERE DATEDIFF(DAY, data_inicio, data_fim) < 10
 )
 
---Nomes completos dos Funcionários que estão no
---projeto Modificação do Módulo de Cadastro
+--Nomes completos dos Funcionï¿½rios que estï¿½o no
+--projeto Modificaï¿½ï¿½o do Mï¿½dulo de Cadastro
 SELECT nome + ' ' + sobrenome AS nome_completo
 FROM funcionario
 WHERE id IN
@@ -796,8 +796,8 @@ WHERE id IN
 	)
 )
 
---Nomes completos dos Funcionários que NÃO estão no
---projeto Modificação do Módulo de Cadastro
+--Nomes completos dos Funcionï¿½rios que Nï¿½O estï¿½o no
+--projeto Modificaï¿½ï¿½o do Mï¿½dulo de Cadastro
 SELECT nome + ' ' + sobrenome AS nome_completo
 FROM funcionario
 WHERE id NOT IN
@@ -818,16 +818,16 @@ SELECT nome + ' ' + sobrenome AS nome_completo,
 	dia_semana = CASE (DATEPART(WEEKDAY, data_nasc))
 		WHEN 1 THEN 'Domingo'
 		WHEN 2 THEN 'Segunda-feira'
-		WHEN 3 THEN 'Terça-feira'
+		WHEN 3 THEN 'Terï¿½a-feira'
 		WHEN 4 THEN 'Quarta-feira'
 		WHEN 5 THEN 'Quinta-feira'
 		WHEN 6 THEN 'Sexta-feira'
-		ELSE 'Sábado'
+		ELSE 'Sï¿½bado'
 	END
 FROM funcionario
 
---Nomes completos e Idade, em anos (considere se fez ou ainda fará
---aniversário esse ano), dos funcionários
+--Nomes completos e Idade, em anos (considere se fez ou ainda farï¿½
+--aniversï¿½rio esse ano), dos funcionï¿½rios
 SELECT nome + ' ' + sobrenome AS nome_completo,
 	DATEDIFF(DAY, data_nasc, GETDATE()) / 365 as idade
 FROM funcionario
