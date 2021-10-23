@@ -1,7 +1,7 @@
 CREATE DATABASE querydinamica01
 GO
 USE querydinamica01
-
+GO
 
 CREATE TABLE produto(
 idProduto INT NOT NULL,
