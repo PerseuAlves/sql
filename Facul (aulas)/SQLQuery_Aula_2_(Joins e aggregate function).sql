@@ -15,7 +15,7 @@ carga_horaria	INT
 PRIMARY KEY (id))
 GO
 INSERT INTO materias VALUES
-('Arquitetura e Organização de Computadores', 80),
+('Arquitetura e Organizaï¿½ï¿½o de Computadores', 80),
 ('Banco de Dados', 80),
 ('Laboratorio de Hardware', 40),
 ('Sistemas Operacionais I', 80)
@@ -579,7 +579,7 @@ GO
 	SELECT tab1.col1, tab1.col2, tab2.col1 AS alias, ... 
 	FROM tab1 INNER JOIN tab2
 	ON tab1.pk = tab2.fk (Se for chave composta tab1.pk1 = pab2.fk1 AND tab1.pk2 = tab2.fk2)
-	WHERE condições
+	WHERE condiï¿½ï¿½es
 
 	Com 3:
 	SELECT tab1.col1, tab1.col2, tab2.col1 AS alias, tab3.col2, ... 
@@ -587,7 +587,7 @@ GO
 	ON tab1.pk = tab2.fk
 	INNER JOIN tab3
 	ON tab1.pk (ou tab2.pk) = tab3.fk
-	WHERE condições
+	WHERE condiï¿½ï¿½es
 
 	Modelo SQL3 (ON -> WHERE)
 	SELECT tab1.col1, tab1.col2, tab2.col1 AS alias, ... 
@@ -600,17 +600,17 @@ GO
 	FROM tab1, tab2, tab3
 	WHERE tab1.pk = tab2.fk
 		AND tab1.pk (ou tab2.pk) = tab3.fk
-		AND condições
+		AND condiï¿½ï¿½es
 
 	OUTER JOIN:
-	SE desejados dados da tab1 que não tem referência em tab2
+	SE desejados dados da tab1 que nï¿½o tem referï¿½ncia em tab2
 	SELECT tab1.col1, tab2.col1, ... 
 	FROM tab1 LEFT OUTER JOIN tab2
 	ON tab1.pk = tab2.fk
 	WHERE tab2.fk IS NULL
 		AND condicoes
 
-	SE desejados dados da tab2 que não tem referência em tab1
+	SE desejados dados da tab2 que nï¿½o tem referï¿½ncia em tab1
 	SELECT tab1.col1, tab2.col1, ... 
 	FROM tab1 RIGHT OUTER JOIN tab2
 	ON tab1.fk = tab2.pk
@@ -618,9 +618,9 @@ GO
 		AND condicoes
 */
 
---Criar listas de chamadas (RA tem um (-) antes do último digito), 
+--Criar listas de chamadas (RA tem um (-) antes do ï¿½ltimo digito), 
 --ordenados pelo nome, caso o nome tenha mais de 30 caract.
---mostrar 29 e um ponto(.) no final RA do aluno, nome do aluno, nome da matéria
+--mostrar 29 e um ponto(.) no final RA do aluno, nome do aluno, nome da matï¿½ria
 --SQL2:
 SELECT al.ra, 
 	CASE WHEN (LEN(al.nome) > 30)
@@ -635,7 +635,7 @@ ON al.ra = am.ra_aluno INNER JOIN materias mat
 ON mat.id = am.id_materia
 WHERE mat.nome LIKE 'Banco%'
 ORDER BY al.nome
---CTRL + L mostra o plano de execução
+--CTRL + L mostra o plano de execuï¿½ï¿½o
 
 --SQL3:
 SELECT al.ra, 
@@ -703,7 +703,7 @@ WHERE al.ra = nt.ra_aluno
 ORDER BY mat.nome, tipo_av, al.nome
 
 
---Matérias que não tem notas cadastradas
+--Matï¿½rias que nï¿½o tem notas cadastradas
 --nome da materia
 SELECT mat.id, mat.nome
 FROM materias mat LEFT OUTER JOIN notas nt
@@ -716,7 +716,7 @@ ON mat.id = nt.id_materia
 WHERE nt.id_materia IS NULL
 
 --Fazer uma consulta que retorne o RA mascarado, o nome do aluno, 
---a nota já com o peso aplicado
+--a nota jï¿½ com o peso aplicado
 --SQL3
 SELECT SUBSTRING(al.ra, 1, 9)+'-'+SUBSTRING(al.ra, 10, 1) AS ra,
 	al.nome, av.tipo, nt.nota, av.peso, 
@@ -738,7 +738,7 @@ ON mat.id = nt.id_materia
 WHERE mat.nome LIKE 'Banco%'
 
 --Fazer uma consulta que retorne o RA mascarado e o nome dos 
---alunos que não estão matriculados em nenhuma matéria
+--alunos que nï¿½o estï¿½o matriculados em nenhuma matï¿½ria
 SELECT SUBSTRING(al.ra, 1, 9)+'-'+SUBSTRING(al.ra, 10, 1) AS ra,
 	al.nome
 FROM alunos al LEFT OUTER JOIN alunomateria am
@@ -752,9 +752,9 @@ ON al.ra = am.ra_aluno
 WHERE am.ra_aluno IS NULL
 
 --Fazer uma consulta que retorne o RA mascarado, o nome dos alunos, 
---o nome da matéria, 
---a nota, o tipo da avaliação, dos alunos que tiraram 
---Notas abaixo da média(6.0) em P1 ou P2, ordenados por matéria 
+--o nome da matï¿½ria, 
+--a nota, o tipo da avaliaï¿½ï¿½o, dos alunos que tiraram 
+--Notas abaixo da mï¿½dia(6.0) em P1 ou P2, ordenados por matï¿½ria 
 --e nome do aluno
 --SQL3
 SELECT SUBSTRING(al.ra, 1, 9)+'-'+SUBSTRING(al.ra, 10, 1) AS ra,
@@ -773,16 +773,16 @@ ORDER BY mat.nome, al.nome
 ---------------------------------------------------------------------------------------
 */
 
-/*Funções de Agregação
+/*Funï¿½ï¿½es de Agregaï¿½ï¿½o
 SUM(), AVG(), COUNT(), MAX(), MIN() 
  
-GROUP BY - Cláusula de Agregação
-HAVING - Filtro para Funções de Agregação
+GROUP BY - Clï¿½usula de Agregaï¿½ï¿½o
+HAVING - Filtro para Funï¿½ï¿½es de Agregaï¿½ï¿½o
 */
  
  
---Consultar a média das notas de cada avaliação por matéria
---Select Média aritmética a partir da soma com filtro de Avaliação e Matéria
+--Consultar a mï¿½dia das notas de cada avaliaï¿½ï¿½o por matï¿½ria
+--Select Mï¿½dia aritmï¿½tica a partir da soma com filtro de Avaliaï¿½ï¿½o e Matï¿½ria
 SELECT CAST(SUM(nt.nota) / 40 AS DECIMAL(7,1)) AS media_p2_bd
 FROM materias mat INNER JOIN notas nt
 ON mat.id = nt.id_materia
@@ -799,7 +799,7 @@ WHERE mat.id = nt.id_materia
 	AND mat.nome LIKE 'Banco%'
  
  
---Select Média aritmética com filtro de Avaliação e Matéria
+--Select Mï¿½dia aritmï¿½tica com filtro de Avaliaï¿½ï¿½o e Matï¿½ria
 SELECT CAST(AVG(nt.nota) AS DECIMAL(7,1)) AS media_p2_bd
 FROM materias mat INNER JOIN notas nt
 ON mat.id = nt.id_materia
@@ -815,7 +815,7 @@ WHERE mat.id = nt.id_materia
 	AND av.tipo = 'P2'
 	AND mat.nome LIKE 'Banco%'
  
---Agrupando por matéria e tipo de avaliação
+--Agrupando por matï¿½ria e tipo de avaliaï¿½ï¿½o
 SELECT mat.nome, av.tipo,
 	CAST(AVG(nt.nota) AS DECIMAL(7,1)) AS media_p2_bd
 FROM materias mat INNER JOIN notas nt
@@ -836,8 +836,8 @@ ORDER BY mat.nome, av.tipo
  
  
 --Consultar o RA do aluno (mascarado), a nota final dos alunos, 
---de alguma matéria e uma coluna conceito 
---(aprovado caso nota >= 6, reprovado, caso contrário)
+--de alguma matï¿½ria e uma coluna conceito 
+--(aprovado caso nota >= 6, reprovado, caso contrï¿½rio)
 SELECT SUBSTRING(al.ra, 1, 9) + '-' + SUBSTRING(al.ra, 10, 1) AS ra,
 	CAST(SUM(av.peso * nt.nota) AS DECIMAL(7,1)) AS nota_final,
 	CASE WHEN SUM(av.peso * nt.nota) >= 6
@@ -871,7 +871,7 @@ WHERE al.ra = nt.ra_aluno
 GROUP BY al.ra
  
  
---Consultar nome da matéria e quantos alunos estão matriculados
+--Consultar nome da matï¿½ria e quantos alunos estï¿½o matriculados
 SELECT mat.nome, COUNT(al.nome) AS total_alunos
 FROM alunos al, alunomateria am, materias mat
 WHERE al.ra = am.ra_aluno
@@ -885,7 +885,7 @@ INNER JOIN materias mat
 ON mat.id = am.id_materia
 GROUP BY mat.nome
  
---Consultar quantos alunos não estão matriculados
+--Consultar quantos alunos nï¿½o estï¿½o matriculados
 SELECT COUNT(al.ra) AS nao_matriculados
 FROM alunos al LEFT OUTER JOIN alunomateria am
 ON al.ra = am.ra_aluno
@@ -894,7 +894,7 @@ WHERE am.ra_aluno IS NULL
 SELECT COUNT(ra) total_alunos
 FROM alunos
  
---Consultar quais alunos estão aprovados em alguma matéria 
+--Consultar quais alunos estï¿½o aprovados em alguma matï¿½ria 
 --(nota final >= 6,0)
 SELECT SUBSTRING(al.ra, 1, 9) + '-' + SUBSTRING(al.ra, 10, 1) AS ra,
 	al.nome
@@ -919,7 +919,7 @@ GROUP BY al.ra, al.nome
 HAVING SUM(av.peso * nt.nota) >= 6.0
  
  
---Consultar quantos alunos estão aprovados em alguma matéria
+--Consultar quantos alunos estï¿½o aprovados em alguma matï¿½ria
 --(nota final >= 6,0)
 SELECT COUNT(ra) AS aprovados
 FROM alunos 
@@ -951,9 +951,9 @@ WHERE ra IN
 	HAVING SUM(av.peso * nt.nota) >= 6.0
 )
  
---Consultar quantos alunos estão reprovados em alguma matéria
+--Consultar quantos alunos estï¿½o reprovados em alguma matï¿½ria
 --(nota final < 6,0)
---Método 1
+--Mï¿½todo 1
 SELECT COUNT(ra) AS reprovados
 FROM alunos 
 WHERE ra IN
@@ -984,7 +984,7 @@ WHERE ra IN
 	HAVING SUM(av.peso * nt.nota) < 6.0
 )
  
---Método 2
+--Mï¿½todo 2
 SELECT COUNT(ra) AS aprovados
 FROM alunos al INNER JOIN alunomateria am
 ON al.ra = am.ra_aluno
@@ -1022,7 +1022,7 @@ WHERE al.ra = am.ra_aluno
 	HAVING SUM(av.peso * nt.nota) >= 6.0
 )
  
---Consultar a maior e menor notas das avaliações das matérias
+--Consultar a maior e menor notas das avaliaï¿½ï¿½es das matï¿½rias
 SELECT mat.nome, av.tipo, MAX(nt.nota) AS maior_nota,
 	MIN(nt.nota) AS menor_nota
 FROM materias mat INNER JOIN notas nt
@@ -1040,8 +1040,8 @@ WHERE mat.id = nt.id_materia
 GROUP BY mat.nome, av.tipo
 ORDER BY mat.nome, av.tipo
  
---Consultar a menor notas das avaliações das matérias
---que não sejam zero
+--Consultar a menor notas das avaliaï¿½ï¿½es das matï¿½rias
+--que nï¿½o sejam zero
 SELECT mat.nome, av.tipo, MIN(nt.nota) AS nota_minima
 FROM materias mat INNER JOIN notas nt
 ON mat.id = nt.id_materia
@@ -1067,7 +1067,7 @@ WHERE mat.id = nt.id_materia
 )
 GROUP BY mat.nome, av.tipo
  
---Retornar nome da matéria, tipo da avaliação e as 2 maiores notas
+--Retornar nome da matï¿½ria, tipo da avaliaï¿½ï¿½o e as 2 maiores notas
 SELECT TOP 2 al.nome, mat.nome, av.tipo, nt.nota
 FROM materias mat INNER JOIN notas nt
 ON mat.id = nt.id_materia
@@ -1126,7 +1126,7 @@ WHERE al.ra = nt.ra_aluno
  
  
  
---Montar a seguinte tabela de saída:
+--Montar a seguinte tabela de saï¿½da:
 --(ra formatado, nome, nota_final, conceito, 
 --faltante(quanto faltou para passar (null 
 --para aprovados)), min_exame (quanto precisa 
@@ -1134,7 +1134,7 @@ WHERE al.ra = nt.ra_aluno
 --alunos com notas maior que 6,0 e menor que
 --3,0)))
 --exame : nota_final + nota_exame / 2 >= 6.0
---12 - nota_final = nota mínima no exame
+--12 - nota_final = nota mï¿½nima no exame
  
 SELECT SUBSTRING(al.ra, 1, 9) + '-' + SUBSTRING(al.ra, 10, 1) AS ra,
 	al.nome,
@@ -1206,11 +1206,11 @@ FROM alunos al, notas nt, materias mat, avaliacoes av
 GROUP BY al.ra, al.nome, mat.nome
 ORDER BY al.nome
  
--- Montar a seguinte tabela de saída:
+-- Montar a seguinte tabela de saï¿½da:
 --(ra formatado, nome, nota)
 --para os alunos que tem a maior e a menor 
 --nota de uma disciplina e 
---uma avaliação a definir na clausula WHERE.
+--uma avaliaï¿½ï¿½o a definir na clausula WHERE.
  
 --P2 | Banco de Dados
  
