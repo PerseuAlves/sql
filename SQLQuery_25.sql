@@ -611,8 +611,8 @@ AS
     SET @contador_jogos = 0
     SET @index_time     = 0
     SET @index_time_2   = 0
-    SET @gols_time_1    = 0
-    SET @gols_time_2    = 0
+    SET @gols_time_1    = NULL
+    SET @gols_time_2    = NULL
     SET @data_valida    = 1;
 
     DISABLE TRIGGER t_block_operacoes_jogos ON jogos
@@ -1137,26 +1137,52 @@ USE campeonato_paulista
 
 GO
 
-CREATE FUNCTION f_gols_marcados (@codigo INT)
+CREATE FUNCTION f_gols_marcados(@codigo INT)
 RETURNS INT
 AS
 BEGIN 
-	DECLARE @gols_marcados INT
-	SET @gols_marcados = (SELECT SUM(gols_time_a) AS gols_marcados FROM jogos WHERE codigo_time_a = @codigo AND gols_time_a IS NOT NULL)
-	SET @gols_marcados = @gols_marcados + (SELECT SUM(gols_time_b) AS gols_marcados FROM jogos WHERE codigo_time_b = @codigo AND gols_time_b IS NOT NULL)
+	DECLARE @gols_marcados INT,
+            @aux_1         INT,
+            @aux_2         INT
+
+	SET @aux_1 = (SELECT SUM(gols_time_a) AS gols_marcados FROM jogos WHERE codigo_time_a = @codigo AND gols_time_a IS NOT NULL)
+    IF(@aux_1 IS NULL)
+    BEGIN
+        SET @aux_1 = 0
+    END
+	SET @aux_2 = (SELECT SUM(gols_time_b) AS gols_marcados FROM jogos WHERE codigo_time_b = @codigo AND gols_time_b IS NOT NULL)
+    IF(@aux_2 IS NULL)
+    BEGIN
+        SET @aux_2 = 0
+    END
+
+    SET @gols_marcados = @aux_1 + @aux_2
 
 	RETURN @gols_marcados
 END
 
 GO 
 
-CREATE FUNCTION f_gols_sofrido (@codigo INT)
+CREATE FUNCTION f_gols_sofrido(@codigo INT)
 RETURNS INT
 AS
 BEGIN 
-	DECLARE @gols_sofridos INT
-	SET @gols_sofridos = (SELECT SUM(gols_time_b) AS gols_marcados FROM jogos WHERE codigo_time_a = @codigo AND gols_time_b IS NOT NULL)
-	SET @gols_sofridos = @gols_sofridos + (SELECT SUM(gols_time_a) AS gols_marcados FROM jogos WHERE codigo_time_b = @codigo AND gols_time_a IS NOT NULL)
+	DECLARE @gols_sofridos INT,
+            @aux_1         INT,
+            @aux_2         INT
+
+	SET @aux_1 = (SELECT SUM(gols_time_b) AS gols_marcados FROM jogos WHERE codigo_time_a = @codigo AND gols_time_b IS NOT NULL)
+    IF(@aux_1 IS NULL)
+    BEGIN
+        SET @aux_1 = 0
+    END
+	SET @aux_2 = (SELECT SUM(gols_time_a) AS gols_marcados FROM jogos WHERE codigo_time_b = @codigo AND gols_time_a IS NOT NULL)
+    IF(@aux_2 IS NULL)
+    BEGIN
+        SET @aux_2 = 0
+    END
+
+    SET @gols_sofridos = @aux_1 + @aux_2
 
 	RETURN @gols_sofridos
 END
@@ -1211,13 +1237,16 @@ AS
 BEGIN 
 	DECLARE @jogos INT
 
-	SET @jogos = (SELECT COUNT(data_partida) AS qtd_de_jogos FROM jogos WHERE codigo_time_a = @codigo OR  codigo_time_b = @codigo AND gols_time_a IS NOT NULL)
+    SET @jogos = (SELECT COUNT(data_partida) FROM jogos WHERE (codigo_time_a = @codigo AND gols_time_a + gols_time_b IS NOT NULL) OR (codigo_time_b = @codigo AND gols_time_a + gols_time_b IS NOT NULL))
 
 	RETURN @jogos
 END
 
 GO
 
+SELECT * FROM jogos
+
+GO
 ----------------------------------------------------------------------------------------
 
 CREATE FUNCTION f_classificacao_grupos (@grupo CHAR(1))
@@ -1379,6 +1408,17 @@ SELECT * FROM dbo.f_quartas_de_final() as Quartas
 
 GO
 
+SELECT * FROM f_classificacao_geral() ORDER BY pontos DESC, vitorias DESC, gols_marcados DESC, saldo_de_gols DESC
+
+GO
+
+SELECT * FROM jogos
+
+GO
+
+SELECT SUM(gols_time_a) AS gols_marcados FROM jogos WHERE codigo_time_a = 8 AND gols_time_a IS NOT NULL
+
+GO
 ----------------------------------------------------------------------------------------
 
 CREATE PROCEDURE atualiza_gols(@codigo_time_a INT, @codigo_time_b INT, @gols_time_a INT, @gols_time_b INT, @saida VARCHAR(100) OUTPUT)

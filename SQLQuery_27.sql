@@ -24,6 +24,18 @@ CREATE TABLE produtos
 )
 GO
 
+CREATE TABLE venda
+(
+    codigo_venda        INT     NOT NULL,
+    data_compra         DATE    NOT NULL,
+    codigo_produto      INT     NOT NULL,
+    quantidade          INT     NOT NULL
+
+    FOREIGN KEY(codigo_produto) REFERENCES produtos(codigo)
+    PRIMARY KEY(codigo_venda, data_compra, codigo_produto)
+)
+GO
+
 CREATE FUNCTION fn_estoque(@margem INT)
 RETURNS INT
 AS
@@ -147,3 +159,23 @@ INSERT INTO produtos VALUES
 GO
 
 SELECT * FROM produtos
+
+GO
+
+CREATE TRIGGER t_insertVenda ON venda
+AFTER INSERT
+AS
+BEGIN
+    DECLARE @quantidade INT
+
+    SELECT @quantidade = quantidade FROM INSERTED
+
+    IF(@quantidade = 0)
+    BEGIN
+        ROLLBACK TRANSACTION
+    END
+END
+
+SELECT * FROM venda
+
+DELETE FROM venda
